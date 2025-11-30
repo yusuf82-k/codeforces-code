@@ -1,0 +1,152 @@
+//TWO POINTER TECHNIQUE TO FIND THE  LONGEST CONTINUOUS BLOCK OF SAME ELEMENT
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    vector<int> a = {1, 1, 2, 2, 2, 3, 3, 1, 1, 1, 1};
+    int n = a.size();
+
+    int maxLen = 0;
+    int element = -1;
+
+    int i = 0;
+    while (i < n) {
+        int j = i;
+        // move j until element changes
+        while (j < n && a[j] == a[i]) {
+            j++;
+        }
+
+        int len = j - i;
+        if (len > maxLen) {
+            maxLen = len;
+            element = a[i];
+        }
+
+        i = j; // move to next block
+    }
+
+    cout << "Longest block length = " << maxLen << endl;
+    cout << "Element = " << element << endl;
+
+    return 0;
+}
+
+
+
+
+///////////////////////////////////kadane's algorithm/////////////////////////////////
+#include <bits/stdc++.h>//maximum subarray sum
+using namespace std;
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++) cin >> arr[i];
+
+    int currentSum = 0;
+    int maxSum = INT_MIN;
+
+    for (int x : arr) {
+        currentSum += x;
+        
+        maxSum = max(maxSum, currentSum);
+        if (currentSum < 0)
+            currentSum = 0;
+    }
+
+    cout << "Maximum Subarray Sum = " << maxSum << endl;
+}
+    return 0;
+}
+
+
+
+////////////
+
+#include <bits/stdc++.h>
+using ll = long long;
+using namespace std;
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        ll n;
+        cin>>n;
+        vector<ll>a(n);
+        vector<ll>b;
+        cin>>a[0];
+        for(int i=1;i<n;i++){
+            cin>>a[i];
+            if(a[i]%2==a[i-1]%2){
+                b.push_back(i-1);
+            }
+        }
+        b.push_back(n-1);
+        ll maxi=LLONG_MIN;
+    ll currentSum = 0;
+    ll maxSum = LLONG_MIN;
+     int j=0;
+    for(int i=0;i<=b[j];i++) {
+        currentSum += a[i];
+        maxSum = max(maxSum, currentSum);
+        if (currentSum < 0)
+            currentSum = 0;
+        if(i==b[j]){
+            if(j<b.size()-1)
+            j++;
+            maxi=max(maxi,maxSum);
+            currentSum=0;
+            maxSum=LLONG_MIN;
+        }
+    }
+    cout<<maxi<<endl;
+
+
+    }
+    return 0;
+}
+
+
+
+///////////////////////////////////checking the number whether prime or not////////////////////////////////////
+
+bool isprime(int n) {
+    if (n < 2) return false;
+    if (n == 2 || n == 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+ 
+    for (int i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+    }
+    return true;
+}
+/////////////////////////////moore's voting algorithm///////////////////////////////////
+
+//find majority element(>n/2)
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int &x : a) cin >> x;
+
+    int candidate = -1, count = 0;
+
+    for (int x : a) {
+        if (count == 0) {
+            candidate = x;
+        }
+        count += (x == candidate ? 1 : -1);
+    }
+
+    cout << candidate;
+    return 0;
+}
