@@ -7,7 +7,7 @@ struct ListNode {
     struct ListNode* next;
 };
 
-// Function to create a new node
+// Function to create a
 struct ListNode* createNode(int val) {
     struct ListNode* node = (struct ListNode*)malloc(sizeof(struct ListNode));
     node->val = val;
